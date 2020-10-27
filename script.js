@@ -22,9 +22,6 @@ const editHtml = (res) => {
 
   let $commic = document.getElementById('commic')
 
-  console.log('numero de contenido: ', $commic.children[0]);
-  console.log('contenido: ', $commic.innerHTML);
-
   if ($commic.innerHTML.length >= 5){
     $commic.children[0].remove();
   }
@@ -53,7 +50,7 @@ let calificacion = (num) => {
 (function load (){
 
   async function getData(url) {
-    let cors = 'https://cors-anywhere.herokuapp.com'
+    let cors = `https://cors-anywhere.herokuapp.com`
     const response = await fetch(`${cors}/${url}`);
     const data = await response.json();
     return data
