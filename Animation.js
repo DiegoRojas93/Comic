@@ -1,87 +1,78 @@
+function EditSection (data){
 
-// https://stephencharlesweiss.com/building-xkcd-daily-digest/#footnotes
+  return (`
+    <article class="commic__container">
+      <div class="commic__image">
+        <img src=${data.img} alt="${data.alt}">
+      </div>
 
-// const proxyUrl = 'https://cors-anywhere.herokuapp.com'
-
-// const proxiedRequest = (url, options = {}) =>
-//   fetch(`${proxyUrl}/${url}`, {
-//     ...options,
-//     headers: {
-//       ...options.headers,
-//       'X-Requested-With': 'wololo',
-//     },
-//   })
-//   .then(resp => resp.json())
-//   .then(res => console.log({comic: res}))
-//   .catch(error => console.error(`oh no --> `, error))
-
-// const proxiedGet = url => proxiedRequest(url)
-
-// proxiedGet('https://xkcd.com/info.0.json')
+      <div class="commic__data">
+        <div class="commic__data-container">
+          <h2>${data.title}</h2>
+          <p>${data.year} / ${data.month} / ${data.day}</p>
+          <p>commic numero: ${data.num}</p>
+        </div>
+      </div>
+    </article>
+  `)
+}
 
 
 const editHtml = (res) => {
-  console.log('data: ', res);
 
-  const $section = document.getElementsByTagName('section')
+  let $commic = document.getElementById('commic')
 
-  function EditSection (data){
-    return (`
-      <div class="title">
-        <h2>${data.title}</h2>
-      </div>
+  console.log('numero de contenido: ', $commic.children[0]);
+  console.log('contenido: ', $commic.innerHTML);
 
-      <div class="image">
-        <img src="${data.img}" alt="${data.alt}">
-      </div>
-
-      <div class="Calification">
-        clasifica este trabajo
-
-        <ul>
-          <li><i class="fas fa-star"></i></li>
-          <li><i class="fas fa-star"></i></li>
-          <li><i class="fas fa-star"></i></li>
-          <li><i class="fas fa-star"></i></li>
-          <li><i class="fas fa-star"></i></li>
-        </ul>
-      </div>
-    `)
+  if ($commic.innerHTML.length >= 5){
+    $commic.children[0].remove();
   }
 
   const HTML = EditSection(res);
 
-  console.log('html: ', HTML);
-  
   const $home = document.implementation.createHTMLDocument()
-  
+
   $home.body.innerHTML = HTML;
-  console.log('html: ', $home);
-  
+
+  $commic.append($home.body.children[0]);
+
 }
 
-(async function load() {
 
-  const proxyUrl = 'https://cors-anywhere.herokuapp.com'
+let calificacion = (num) => {
+  let $icon = document.getElementsByClassName('fas');
+  $icon[num].classList.add('active')
+    setTimeout(()=>{
+      alert('Gracias por calificar')
+      console.log('esperando');
+      $icon[num].classList.remove('active');
+    },500)
+}
 
-  const proxiedRequest = async(url, options = {}) =>
-    fetch(`${proxyUrl}/${url}`, {
-      ...options,
-        headers: {
-          ...options.headers,
-          'X-Requested-With': 'Diego',
-        },
-    })
-    .then(resp => resp.json())
-    .then(res => editHtml(res))
-    .catch(error => console.error(`Tengo un error --> `, error))
+(function load (){
 
-  const proxiedGet = url => proxiedRequest(url)
+  async function getData(url) {
+    let cors = 'https://cors-anywhere.herokuapp.com'
+    const response = await fetch(`${cors}/${url}`);
+    const data = await response.json();
+    return data
+  }
 
-  proxiedGet('https://xkcd.com/info.0.json')
+  let $buttom = document.querySelectorAll('.buttom');
 
-})()
+  let numberRandom = setInterval( async()=>{
+    numberRandom = Math.round((Math.random() * 614) + 1)
+    console.log(numberRandom)
+    let info = await getData (`https://xkcd.com/${numberRandom}/info.0.json`);
+    editHtml(info)
 
+  }, 5000)
 
-
+  $buttom[0].addEventListener('click', () => {calificacion(0)} )
+  $buttom[1].addEventListener('click', () => {calificacion(1)})
+  $buttom[2].addEventListener('click', () => {calificacion(2)})
+  $buttom[3].addEventListener('click', () => {calificacion(3)})
+  $buttom[4].addEventListener('click', () => {calificacion(4)})
+})();
 

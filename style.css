@@ -6,8 +6,140 @@ html {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
+	list-style: none;
+	text-decoration: none;
 }
 
-body {
-	
+body{
+	width: 100Vw;
+	height: 100Vh;
+	background: linear-gradient(0deg, rgba(45,11,77,1) 0%, rgba(138,43,226,1) 100%);
+}
+
+h1, h2, p{
+	font-size: 2rem;
+	font-family: 'Comic Neue', cursive;
+	font-size: 700;
+	color: white;
+}
+
+p{
+	font-size: 1.6rem;
+	font-family: 'Coming Soon', cursive;
+}
+
+h2 {
+	font-size: 1.8rem;
+	margin-bottom: 2rem;
+}
+
+section{
+	width: 100%;
+	max-width: 100Vw;
+	height: 100%;
+	max-height: 100Vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+.title{
+	text-align: center;
+}
+
+#commic{
+	height: 60%;
+	max-height: 75%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.espera h1{
+	animation: show 1s 0.5s alternate infinite;
+}
+
+.commic__container{
+	padding: 0 2rem;
+	height: 100%;
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.commic__image{
+	height: 100%;
+	width: 50%;
+	text-align: center;
+}
+
+.commic__data{
+	height: 100%;
+	width: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.commic__data-container{
+	width: 10rem;
+	height: 5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.commic__image img {
+	height: 100%;
+	width: auto;
+	max-width: 100%;
+}
+
+.calificacion{
+	width: 20rem;
+	height: 10rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+}
+
+ul{
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+button{
+	background-color: transparent;
+	border: transparent;
+}
+
+.fas {
+	color: grey;
+	font-size: 3rem;
+	cursor: pointer;
+	margin-bottom: 1rem;
+	transition: color 500ms;
+}
+
+button:hover .fas{
+	color: lightyellow;
+}
+
+.active {
+	color: yellow;
+}
+
+@keyframes show {
+	from {
+		color: rgba(255,255,255, 1);
+	}
+
+	to {
+		color: rgba(255, 255, 255, 0);
+	}
 }
